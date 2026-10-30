@@ -1,0 +1,30 @@
+# Feature 1 — Identity & Profiles (Member 1)
+
+## Goal
+Provide a small profile feature. To save time, use the team's agreed simple/demo authentication setup rather than building a complex auth system.
+
+## User stories
+- As a user, I can view my name, email, and role.
+- As a user, I can edit my display name.
+- As a user, I can see my previously loaded basic profile while offline.
+
+## Minimal UI
+`/profile` shows name, email, and role. One small edit form contains only the display-name field. Add sign-out only if authentication is implemented.
+
+## Data
+`User`: `_id`, `name`, `email`, `role`. Roles: `CUSTOMER`, `PROVIDER`, `SUPPLIER`, `MODERATOR`.
+
+## Backend
+Implement the profile read/update operations required by the chosen authentication setup. The API must never let a user change their own role via the profile form.
+
+## Service-worker functionality: safe profile snapshot
+1. After a successful online profile load, save safe display fields in a small local record.
+2. Offline, show the saved details with **Offline copy — may be outdated**.
+3. Never cache passwords, tokens, or credentials.
+4. Keep profile edits online-only for simplicity; offline edit drafts are optional.
+
+## Done when
+- [ ] Profile can be viewed and display name updated online.
+- [ ] Data persists after refresh.
+- [ ] Previously loaded profile is visible offline with a clear label.
+- [ ] Role cannot be changed through the profile form.
