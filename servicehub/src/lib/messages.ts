@@ -52,8 +52,7 @@ export async function listMessageConversations(userId: string): Promise<MessageC
       bookingId: booking._id,
       serviceTitle: booking.serviceTitle,
       messages: documents.filter((message) => message.bookingId === booking._id).map(toMessage),
-    }))
-    .filter((conversation) => conversation.messages.length > 0);
+    }));
 }
 
 export async function createMessage(input: {

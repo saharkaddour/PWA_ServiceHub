@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { Collection, Filter } from "mongodb";
 import clientPromise from "@/lib/db/mongodb";
+import { notifyProviderOfBooking } from "@/lib/push";
 
 export const bookingStatuses = [
   "PENDING",
@@ -93,7 +94,12 @@ export async function createBooking(input: {
     if (!duplicate) throw error;
     return toBooking(duplicate);
   }
-  return toBooking(document);
+  const booking = toBooking(document);
+  // Notification delivery must never turn a saved booking into a failed request.
+  await notifyProviderOfBooking(booking).catch(() => {
+    console.error("Booking push dispatch failed");
+  });
+  return booking;
 }
 
 export async function updateBookingStatus(

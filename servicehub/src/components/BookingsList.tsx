@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { Booking, BookingStatus } from "@/lib/bookings";
 import { getPendingBookings, removePendingBooking, savePendingBooking, type PendingBooking } from "@/lib/booking-queue";
 import styles from "./BookingsList.module.css";
@@ -91,6 +92,7 @@ export default function BookingsList({
           <p>Preferred date: {booking.preferredDate}</p>
           {booking.note && <p>{booking.note}</p>}
           <strong>{labels[booking.status]}</strong>
+          <Link href={`/messages?booking=${encodeURIComponent(booking.id)}`}>Message about this booking</Link>
           {booking.status === "PENDING" && (
             <div className={styles.actions}>
               {role === "CUSTOMER" ? (

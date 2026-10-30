@@ -1,5 +1,5 @@
-const CACHE = "servicehub-v9";
-const APP_SHELL = ["/", "/offline"];
+const CACHE = "servicehub-v11";
+const APP_SHELL = ["/offline"];
 
 function isServiceDetailNavigation(request, url) {
   return request.mode === "navigate" && /^\/services\/[^/]+$/.test(url.pathname);
@@ -122,6 +122,8 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
+  // Private API responses and conversations must never be cached.
+  if (url.pathname.startsWith("/api/") || url.pathname === "/messages" || url.pathname.startsWith("/messages/")) return;
 
   event.respondWith(
     fetch(request)
@@ -152,17 +154,42 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
+self.addEventListener("push", (event) => {
+  let payload = {};
+  try {
+    payload = event.data?.json() || {};
+  } catch {
+    // A push must still show a notification if the payload is malformed.
+  }
+  event.waitUntil(self.registration.showNotification(payload.title || "New booking request", {
+    body: payload.body || "Open ServiceHub to view your bookings.",
+    icon: "/icons/icon-192.png",
+    tag: payload.tag || "servicehub-booking",
+    data: { url: "/bookings" },
+  }));
+});
+
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
-  const targetUrl = event.notification.data?.url || "/messages";
+  let targetUrl = new URL("/bookings", self.location.origin).href;
+  try {
+    const requested = new URL(event.notification.data?.url || "/bookings", self.location.origin);
+    if (requested.origin === self.location.origin) targetUrl = requested.href;
+  } catch {
+    // Use bookings for invalid links.
+  }
   event.waitUntil(
-    clients.matchAll({ type: "window", includeUncontrolled: true }).then((windows) => {
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then(async (windows) => {
       const existing = windows.find((client) => "focus" in client);
       if (existing) {
-        existing.navigate(targetUrl);
-        return existing.focus();
+        try {
+          const navigated = await existing.navigate(targetUrl);
+          if (navigated) return await navigated.focus();
+        } catch {
+          // A window may have closed between lookup and navigation.
+        }
       }
-      return clients.openWindow("/messages");
+      return clients.openWindow(targetUrl);
     }),
   );
 });
