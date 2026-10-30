@@ -1,0 +1,105 @@
+.page {
+  min-height: 100svh;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.hero,
+.features {
+  width: min(100%, 70rem);
+  margin: 0 auto;
+}
+
+.hero {
+  padding: 4rem 0 3rem;
+}
+
+.eyebrow {
+  color: #1f4e79;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 42rem;
+  margin: 0.75rem 0 1rem;
+  color: #12263a;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.intro {
+  max-width: 38rem;
+  color: #536273;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.actions a,
+.featureGrid a {
+  border-radius: 0.75rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.actions a {
+  padding: 0.8rem 1.1rem;
+  font-weight: 650;
+}
+
+.primary {
+  background: #1f4e79;
+  color: #fff;
+}
+
+.secondary {
+  border: 1px solid #c9d5e0;
+  color: #1f4e79;
+}
+
+.features {
+  border-top: 1px solid #dfe7ee;
+  padding-top: 2rem;
+}
+
+.features h2 {
+  color: #12263a;
+  font-size: 1.4rem;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.featureGrid a {
+  display: grid;
+  gap: 0.5rem;
+  border: 1px solid #dfe7ee;
+  padding: 1.25rem;
+}
+
+.featureGrid strong {
+  color: #1f4e79;
+}
+
+.featureGrid span {
+  color: #536273;
+  line-height: 1.5;
+}
+
+.actions a:hover,
+.featureGrid a:hover {
+  box-shadow: 0 0.5rem 1.5rem rgb(18 38 58 / 12%);
+  transform: translateY(-2px);
+}

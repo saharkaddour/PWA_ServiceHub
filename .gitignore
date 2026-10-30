@@ -1,0 +1,11 @@
+/servicehub/node_modules
+/servicehub/.next
+/servicehub/out
+/servicehub/build
+/servicehub/.env*
+/servicehub/.vercel
+/servicehub/coverage
+/servicehub/*.tsbuildinfo
+/servicehub/next-env.d.ts
+*.pem
+*.log
