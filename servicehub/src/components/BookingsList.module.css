@@ -1,0 +1,10 @@
+.page { width: min(100% - 2.5rem, 42rem); margin: 0 auto; padding: 2rem 0 4rem; }
+.page > p:first-child { color: #1f4e79; font-weight: 700; }
+.page h1 { color: #12263a; }
+.card { display: grid; gap: .65rem; border: 1px solid #dfe7ee; border-radius: 1rem; background: #fff; margin-top: 1rem; padding: 1.25rem; }
+.card h2, .card p { margin: 0; }
+.card p { color: #536273; }
+.card strong { color: #1f4e79; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.actions button, .card > button { border: 1px solid #b9c9d6; border-radius: .4rem; background: #fff; cursor: pointer; font: inherit; padding: .55rem .7rem; }
+.error { color: #a52c22; }

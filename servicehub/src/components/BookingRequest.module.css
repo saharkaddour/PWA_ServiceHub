@@ -1,0 +1,14 @@
+.section { display: grid; gap: 1rem; }
+.request, .cancel { border: 0; border-radius: .5rem; cursor: pointer; font: inherit; font-weight: 700; padding: .75rem 1rem; }
+.request { background: #1f4e79; color: #fff; }
+.request:disabled { cursor: not-allowed; opacity: .6; }
+.form { display: grid; gap: 1rem; border-top: 1px solid #dfe7ee; padding-top: 1.25rem; }
+.form h2 { margin: 0; color: #12263a; font-size: 1.25rem; }
+.form label { display: grid; gap: .4rem; color: #12263a; font-weight: 700; }
+.form label span { color: #536273; font-size: .9rem; font-weight: 400; }
+.form input, .form textarea { border: 1px solid #b9c9d6; border-radius: .4rem; font: inherit; padding: .65rem; }
+.form textarea { min-height: 5rem; resize: vertical; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.cancel { border: 1px solid #b9c9d6; background: #fff; color: #12263a; }
+.message { margin: 0; color: #176b3a; }
+.error { margin: 0; color: #a52c22; }
